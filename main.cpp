@@ -8,7 +8,8 @@ int main() {
     
     cout << "Hello World" << endl;
 
-    InitWindow(300, 300, "My first Raylib window!");
+    InitWindow(1100, 1100, "Algorythm simulation");
+
     SetTargetFPS(60);
 
     while (!WindowShouldClose()) {
