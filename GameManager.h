@@ -1,6 +1,7 @@
 #pragma once
 #include "raylib.h"
 #include "MapManager.h"
+#include "PathFinding.h"
 
 class GameManager
 {

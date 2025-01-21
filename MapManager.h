@@ -1,10 +1,7 @@
 #pragma once
-#include <vector>
-#include <raylib.h>
 #include "iostream"
-#include "Node.h"
+#include "PathFinding.h"
 
-#define MAP_SIZE 1073
 
 class MapManager {
 
@@ -12,10 +9,12 @@ public:
 	MapManager();
 	~MapManager();
 
+	std::vector<Node*> GetNeighbours(Node* _node);
+
 	void Load();
 	void Draw();
-	void SetStart(Vector2 _position);
-	void SetEnd(Vector2 _position);
+	void SetNodeType(Vector2D _position, NodeType _type);
+	Node* GetNode(Vector2D _position);
 
 private:
 	Node* mTiles[MAP_SIZE][MAP_SIZE];

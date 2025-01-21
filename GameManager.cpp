@@ -20,6 +20,11 @@ void GameManager::Update()
 
 	if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
 	{
+
+	}
+	else if (IsMouseButtonPressed(MOUSE_RIGHT_BUTTON))
+	{
+
 	}
 }
 

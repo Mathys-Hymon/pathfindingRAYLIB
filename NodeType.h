@@ -7,5 +7,7 @@ enum class NodeType
 	DIFFICULT,
 	OBSTACLE,
 	START,
-	END
+	END,
+	PATH,
+	SEARCHED,
 };

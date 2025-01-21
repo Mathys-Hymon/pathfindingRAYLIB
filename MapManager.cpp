@@ -8,6 +8,30 @@ MapManager::~MapManager()
 {
 }
 
+std::vector<Node*> MapManager::GetNeighbours(Node* _node)
+{
+	std::vector<Node*> neighbours;
+
+	if (_node->GetPosition().x - 1 >= 0 && mTiles[(int)_node->GetPosition().x - 1][(int)_node->GetPosition().y]->GetType() != NodeType::OBSTACLE)
+	{
+		neighbours.push_back(mTiles[(int)_node->GetPosition().x - 1][(int)_node->GetPosition().y]);
+	}
+	if (_node->GetPosition().x + 1 < MAP_SIZE && mTiles[(int)_node->GetPosition().x + 1][(int)_node->GetPosition().y]->GetType() != NodeType::OBSTACLE)
+	{
+		neighbours.push_back(mTiles[(int)_node->GetPosition().x + 1][(int)_node->GetPosition().y]);
+	}
+	if (_node->GetPosition().y - 1 >= 0 && mTiles[(int)_node->GetPosition().x][(int)_node->GetPosition().y - 1]->GetType() != NodeType::OBSTACLE)
+	{
+		neighbours.push_back(mTiles[(int)_node->GetPosition().x][(int)_node->GetPosition().y - 1]);
+	}
+	if (_node->GetPosition().y + 1 < MAP_SIZE && mTiles[(int)_node->GetPosition().x][(int)_node->GetPosition().y + 1]->GetType() != NodeType::OBSTACLE)
+	{
+		neighbours.push_back(mTiles[(int)_node->GetPosition().x][(int)_node->GetPosition().y + 1]);
+	}
+
+	return neighbours;
+}
+
 void MapManager::Load()
 {
 	Image mapImage = LoadImage("resources/maps/Map1.png");
@@ -48,12 +72,12 @@ void MapManager::Draw()
 	}
 }
 
-void MapManager::SetStart(Vector2 _position)
+void MapManager::SetNodeType(Vector2D _position, NodeType _type)
 {
-	mTiles[(int)_position.x][(int)_position.y]->GetType() = NodeType::START;
+	mTiles[(int)_position.x][(int)_position.y]->SetType(_type);
 }
 
-void MapManager::SetEnd(Vector2 _position)
+Node* MapManager::GetNode(Vector2D _position)
 {
-	mTiles[(int)_position.x][(int)_position.y]->GetType() = NodeType::END;
+	return mTiles[(int)_position.x][(int)_position.y];
 }

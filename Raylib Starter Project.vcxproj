@@ -137,13 +137,16 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="Node.cpp" />
+    <ClCompile Include="PathFinding.cpp" />
     <ClCompile Include="Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="HeuristicsType.h" />
     <ClInclude Include="MapManager.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="NodeType.h" />
+    <ClInclude Include="PathFinding.h" />
     <ClInclude Include="Vector2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
