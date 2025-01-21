@@ -2,19 +2,19 @@
 #include "cmath"
 #include "string"
 
-struct Vector2
+struct Vector2D
 {
     float x = 0; ///< The x-coordinate of the vector.
     float y = 0; ///< The y-coordinate of the vector.
 
-    static const Vector2 Zero; ///< A vector with both coordinates set to zero.
-    static const Vector2 One;  ///< A vector with both coordinates set to one.
+    static const Vector2D Zero; ///< A vector with both coordinates set to zero.
+    static const Vector2D One;  ///< A vector with both coordinates set to one.
 
-    Vector2() : x(0), y(0) {}
+    Vector2D() : x(0), y(0) {}
 
-    Vector2(float pX, float pY) : x(pX), y(pY) {}
+    Vector2D(float pX, float pY) : x(pX), y(pY) {}
 
-    inline void operator+=(Vector2& right)
+    inline void operator+=(Vector2D& right)
     {
         x += right.x;
         y += right.y;
@@ -26,7 +26,7 @@ struct Vector2
         y += length;
     }
 
-    inline void operator-=(Vector2& right)
+    inline void operator-=(Vector2D& right)
     {
         x -= right.x;
         y -= right.y;
@@ -38,7 +38,7 @@ struct Vector2
         y -= length;
     }
 
-    inline void operator*=(Vector2& multiplyer)
+    inline void operator*=(Vector2D& multiplyer)
     {
         x *= multiplyer.x;
         y *= multiplyer.y;
@@ -50,7 +50,7 @@ struct Vector2
         y *= length;
     }
 
-    inline void operator/=(Vector2& divider)
+    inline void operator/=(Vector2D& divider)
     {
         x /= divider.x;
         y /= divider.y;
@@ -62,62 +62,62 @@ struct Vector2
         y /= length;
     }
 
-    friend Vector2 operator-(Vector2& left, Vector2 right)
+    friend Vector2D operator-(Vector2D& left, Vector2D right)
     {
         return { left.x - right.x, left.y - right.y };
     }
 
-    friend Vector2 operator-(Vector2 left, Vector2& right)
+    friend Vector2D operator-(Vector2D left, Vector2D& right)
     {
         return { left.x - right.x, left.y - right.y };
     }
 
-    friend Vector2 operator-(Vector2& left, Vector2& right)
+    friend Vector2D operator-(Vector2D& left, Vector2D& right)
     {
         return { left.x - right.x, left.y - right.y };
     }
 
-    friend Vector2 operator-(Vector2& left, float right)
+    friend Vector2D operator-(Vector2D& left, float right)
     {
         return { left.x - right, left.y - right };
     }
 
-    friend Vector2 operator+(Vector2& left, Vector2 right)
+    friend Vector2D operator+(Vector2D& left, Vector2D right)
     {
         return { left.x + right.x, left.y + right.y };
     }
 
-    friend Vector2 operator+(Vector2 left, Vector2& right)
+    friend Vector2D operator+(Vector2D left, Vector2D& right)
     {
         return { left.x + right.x, left.y + right.y };
     }
 
-    friend Vector2 operator+(Vector2& left, Vector2& right)
+    friend Vector2D operator+(Vector2D& left, Vector2D& right)
     {
         return { left.x + right.x, left.y + right.y };
     }
 
-    friend Vector2 operator+(Vector2& left, float right)
+    friend Vector2D operator+(Vector2D& left, float right)
     {
         return { left.x + right, left.y + right };
     }
 
-    friend Vector2 operator*(float scalar, Vector2& right)
+    friend Vector2D operator*(float scalar, Vector2D& right)
     {
         return { scalar * right.x, scalar * right.y };
     }
 
-    friend Vector2 operator*(Vector2& left, float scalar)
+    friend Vector2D operator*(Vector2D& left, float scalar)
     {
         return { left.x * scalar, left.y * scalar };
     }
 
-    friend Vector2 operator/(float scalar, Vector2& right)
+    friend Vector2D operator/(float scalar, Vector2D& right)
     {
         return { scalar / right.x, scalar / right.y };
     }
 
-    friend Vector2 operator/(Vector2& left, float scalar)
+    friend Vector2D operator/(Vector2D& left, float scalar)
     {
         return { left.x / scalar, left.y / scalar };
     }
@@ -127,7 +127,7 @@ struct Vector2
         return sqrt(x * x + y * y);
     }
 
-    inline bool Equal(Vector2 right, double acceptance) const
+    inline bool Equal(Vector2D& right, double acceptance) const
     {
         if (x < right.x - acceptance || x > right.x + acceptance || y < right.y - acceptance || y > right.y + acceptance) return false;
         else return true;
@@ -138,12 +138,12 @@ struct Vector2
         (*this) /= Length();
     }
 
-    friend Vector2 Normalize(Vector2 temp)
+    friend Vector2D Normalize(Vector2D temp)
     {
         return temp / temp.Length();
     }
 
-    friend float Dot(Vector2& left, Vector2& right)
+    friend float Dot(Vector2D& left, Vector2D& right)
     {
         return left.x * right.x + left.y * right.y;
     }
@@ -157,7 +157,12 @@ struct Vector2
         if ((*this).y > maxValue)  (*this).y = maxValue;
     }
 
-    friend Vector2 Clamp(Vector2 temp, float minValue, float maxValue)
+    inline float Distance(Vector2D& right) 
+    {
+        return sqrt(((*this).x - right.x) * ((*this).x - right.x) + ((*this).y - right.y) * ((*this).y - right.y));
+    }
+
+    friend Vector2D Clamp(Vector2D temp, float minValue, float maxValue)
     {
         if (temp.x < minValue)  temp.x = minValue;
         if (temp.x > maxValue)  temp.x = maxValue;

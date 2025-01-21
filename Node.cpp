@@ -1,25 +1,8 @@
 #include "Node.h"
 
-Node::Node(Vector2 _position, Vector2 _scale, NodeType _type) : mPosition(_position), mScale(_scale), mType(_type), mParent(nullptr), g(-1), h(-1), f(-1), mColor(WHITE)
+Node::Node(Vector2D _position, Vector2D _scale, NodeType _type) : mPosition(_position), mScale(_scale), mType(_type), mParent(nullptr), g(-1), h(-1), f(-1), mColor(WHITE)
 {
-	switch (mType)
-	{
-	case NodeType::NORMAL:
-		mColor = GREEN;
-		break;
-	case NodeType::CHALLENGING:
-		mColor = ORANGE;
-		break;
-	case NodeType::DIFFICULT:
-		mColor = RED;
-		break;
-	case NodeType::OBSTACLE:
-		mColor = BLACK;
-		break;
-	default:
-		mColor = BLACK;
-		break;
-	}
+	SetType(_type);
 }
 
 Node::~Node()
@@ -28,15 +11,50 @@ Node::~Node()
 
 void Node::Draw()
 {
-	DrawRectanglePro({ 0,0,mScale.x,mScale.y }, mPosition, 0, WHITE);
+	DrawRectangle(mPosition.x, mPosition.y, mScale.x, mScale.y, mColor);
 }
 
 int Node::GetDistance(Node* from)
 {
-	return 0;
+	return mPosition.Distance(from->mPosition);
 }
 
 NodeType& Node::GetType()
 {
 	return mType;
+}
+
+void Node::SetType(NodeType _type)
+{
+	mType = _type;
+
+	switch (mType)
+	{
+	case NodeType::NORMAL:
+		mColor = GREEN;
+		break;
+	case NodeType::CHALLENGING:
+		mColor = DARKGREEN;
+		break;
+	case NodeType::DIFFICULT:
+		mColor = YELLOW;
+		break;
+	case NodeType::OBSTACLE:
+		mColor = DARKBLUE;
+		break;
+	case NodeType::START:
+		mColor = RED;
+		break;
+	case NodeType::END:
+		mColor = WHITE;
+		break;
+	default:
+		mColor = DARKBLUE;
+		break;
+	}
+}
+
+void Node::SetParent(Node* _parent)
+{
+	mParent = _parent;
 }

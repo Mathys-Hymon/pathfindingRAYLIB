@@ -5,5 +5,7 @@ enum class NodeType
 	NORMAL,
 	CHALLENGING,
 	DIFFICULT,
-	OBSTACLE
+	OBSTACLE,
+	START,
+	END
 };
