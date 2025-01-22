@@ -19,17 +19,17 @@ void MapManager::Load()
 		for (int x = 0; x < MAP_SIZE; x++) {
 
 			if (colors[y * mapImage.width + x].g == 255) {
-				mTiles[y][x] = new Node({ x * tileSize ,y * tileSize }, { tileSize, tileSize }, NodeType::NORMAL);
+				mTiles[y][x] = new Node({ x ,y }, tileSize, NodeType::NORMAL);
 			}
 			if (colors[y * mapImage.width + x].b == 255) {
-				mTiles[y][x] = new Node({ x * tileSize ,y * tileSize }, { tileSize, tileSize }, NodeType::CHALLENGING);
+				mTiles[y][x] = new Node({ x ,y }, tileSize, NodeType::CHALLENGING);
 			}
 			if (colors[y * mapImage.width + x].r == 255) {
-				mTiles[y][x] = new Node({ x * tileSize ,y * tileSize }, { tileSize, tileSize }, NodeType::DIFFICULT);
+				mTiles[y][x] = new Node({ x ,y }, tileSize, NodeType::DIFFICULT);
 			}
 			if (colors[y * mapImage.width + x].r == 0 && colors[y * mapImage.width + x].g == 0 && colors[y * mapImage.width + x].b == 0) {
 
-				mTiles[y][x] = new Node({ x * tileSize ,y * tileSize }, { tileSize, tileSize }, NodeType::OBSTACLE);
+				mTiles[y][x] = new Node({ x ,y }, tileSize, NodeType::OBSTACLE);
 			}
 		}
 	}
@@ -53,26 +53,26 @@ void MapManager::Draw()
 void MapManager::SetStart(Vector2D _position)
 {
 	mStart = _position;
-	std::string temps;
+	//std::string temps;
 
-	switch (mTiles[_position.x][_position.y]->GetType())
-	{
-	case NodeType::NORMAL:
-		temps = "NORMAL";
-		break;
-	case NodeType::CHALLENGING:
-		temps = "CHALLENGING";
-		break;
-	case NodeType::DIFFICULT:
-		temps = "DIFFICULT";
-		break;
-	case NodeType::OBSTACLE:
-		temps = "OBSTACLE";
-		break;
-	default:
-		break;
-	};
-	std::cout << temps << std::endl;
+	//switch (mTiles[_position.x][_position.y]->GetType())
+	//{
+	//case NodeType::NORMAL:
+	//	temps = "NORMAL";
+	//	break;
+	//case NodeType::CHALLENGING:
+	//	temps = "CHALLENGING";
+	//	break;
+	//case NodeType::DIFFICULT:
+	//	temps = "DIFFICULT";
+	//	break;
+	//case NodeType::OBSTACLE:
+	//	temps = "OBSTACLE";
+	//	break;
+	//default:
+	//	break;
+	//};
+	//std::cout << temps << std::endl;
 
 	if (mStart != mEnd && mStart != Vector2D{ -1, -1 } && mEnd != Vector2D{ -1, -1 })
 	{

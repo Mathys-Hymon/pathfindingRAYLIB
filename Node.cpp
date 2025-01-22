@@ -1,6 +1,6 @@
 #include "Node.h"
 
-Node::Node(Vector2D _position, Vector2D _scale, NodeType _type) : mPosition(_position), mScale(_scale), mType(_type), mParent(nullptr), g(inf), h(inf), mWeight(1), mColor(WHITE)
+Node::Node(Vector2D _position, int _scale, NodeType _type) : mPosition(_position), mScale(_scale), mType(_type), mParent(nullptr), g(inf), h(inf), mWeight(1), mColor(WHITE)
 {
 	SetType(_type);
 }
@@ -11,7 +11,7 @@ Node::~Node()
 
 void Node::Draw()
 {
-	DrawRectangle(mPosition.x, mPosition.y, mScale.x, mScale.y, mColor);
+	DrawRectangle((mPosition.x * mScale), (mPosition.y * mScale), mScale, mScale, mColor);
 }
 
 int Node::GetDistance(Node* from)

@@ -25,6 +25,8 @@ void PathFinding::Draw(Node* _map[MAP_SIZE][MAP_SIZE])
 void PathFinding::AStar(Node* _map[MAP_SIZE][MAP_SIZE], Vector2D _start, Vector2D _end, HeuristicsType _type)
 {
 	std::cout << "ASTAR STARTED" << std::endl;
+	std::cout << "START AT : " << _start.x << " X | " << _start.y << " Y" << std::endl;
+	std::cout << "END AT : " << _end.x << " X | " << _end.y << " Y" << std::endl;
 
 	mOpenList.clear();
 	mClosedList.clear();
@@ -44,15 +46,14 @@ void PathFinding::AStar(Node* _map[MAP_SIZE][MAP_SIZE], Vector2D _start, Vector2
 			return a->GetFCost() < b->GetFCost() || (a->GetFCost() == b->GetFCost() && a->GetHCost() < b->GetHCost());
 			});
 
-
-		//if (currentNode == endNode) {
-
-			Node* pathNode = currentNode;
-			while (pathNode != nullptr) {
-				pathNode->SetType(NodeType::PATH);
-				pathNode = pathNode->GetParent();
-			}
-		//}
+		if (currentNode == endNode) {
+		Node* pathNode = currentNode;
+		while (pathNode != nullptr) {
+			pathNode->SetType(NodeType::PATH);
+			pathNode = pathNode->GetParent();
+		}
+		break;
+		}
 
 
 		mOpenList.erase(std::remove(mOpenList.begin(), mOpenList.end(), currentNode), mOpenList.end());
@@ -72,7 +73,8 @@ void PathFinding::AStar(Node* _map[MAP_SIZE][MAP_SIZE], Vector2D _start, Vector2
 
 			Node* neighbor = _map[neighborY][neighborX];
 
-
+			if (neighbor == nullptr)
+				continue;
 			if (neighbor->GetType() == NodeType::OBSTACLE || std::find(mClosedList.begin(), mClosedList.end(), neighbor) != mClosedList.end())
 				continue;
 

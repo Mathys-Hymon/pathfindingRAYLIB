@@ -10,7 +10,7 @@ class Node
 {
 public:
 
-	Node(Vector2D _position, Vector2D _scale, NodeType _type);
+	Node(Vector2D _position, int _scale, NodeType _type);
 	~Node();
 
 	void Draw();
@@ -31,8 +31,8 @@ public:
 
 private:
 	Node* mParent;
-	Vector2D mPosition, mScale;
-	int g, h, mWeight;
+	Vector2D mPosition;
+	int g, h, mWeight, mScale;
 	NodeType mType;
 	Color mColor;
 };
