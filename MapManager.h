@@ -1,6 +1,7 @@
 #pragma once
 #include "iostream"
 #include "PathFinding.h"
+#include <thread>
 
 
 class MapManager {
@@ -9,13 +10,15 @@ public:
 	MapManager();
 	~MapManager();
 
-	std::vector<Node*> GetNeighbours(Node* _node);
-
 	void Load();
 	void Draw();
-	void SetNodeType(Vector2D _position, NodeType _type);
-	Node* GetNode(Vector2D _position);
+	void SetStart(Vector2D _position);
+	void SetEnd(Vector2D _position);
+	//Node* GetNode(Vector2D _position);
+
 
 private:
+	Vector2D mStart, mEnd;
 	Node* mTiles[MAP_SIZE][MAP_SIZE];
+	PathFinding* mPathFinding;
 };

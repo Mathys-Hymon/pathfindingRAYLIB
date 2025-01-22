@@ -6,9 +6,9 @@ GameManager mGameManager;
 
 int main() 
 {
-    InitWindow(1073, 1073, "Algorythm simulation");
+    InitWindow(1024, 1024, "Algorythm simulation");
 
-    SetTargetFPS(60);
+    SetTargetFPS(240);
 
 	mGameManager.Load();
 

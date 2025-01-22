@@ -14,5 +14,9 @@ public:
 	void Draw();
 
 private:
-	MapManager* mapManager;
+	MapManager* mMapManager;
+	float mDelay = 0.0f;
+	bool mCanClick = true;
+
+	void ResetCanClick();
 };

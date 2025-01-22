@@ -36,17 +36,17 @@ void Node::SetHCost(int _h)
 
 int Node::GetGCost()
 {
-	return g * mWeight;
+	return g + mWeight;
 }
 
 int Node::GetHCost()
 {
-	return h * mWeight;
+	return h;
 }
 
 int Node::GetFCost()
 {
-	return (g + h) * mWeight;
+	return (g + h);
 }
 
 Node* Node::GetParent()
@@ -56,9 +56,8 @@ Node* Node::GetParent()
 
 void Node::SetType(NodeType _type)
 {
-	mType = _type;
-
-	switch (mType)
+	//std::cout << "CHANGE TYPE" << std::endl;
+	switch (_type)
 	{
 	case NodeType::NORMAL:
 		mColor = GREEN;
@@ -73,7 +72,7 @@ void Node::SetType(NodeType _type)
 		mWeight = 3;
 		break;
 	case NodeType::OBSTACLE:
-		mColor = DARKBLUE;
+		mColor = BLACK;
 		mWeight = 99;
 		break;
 	case NodeType::START:
@@ -82,11 +81,34 @@ void Node::SetType(NodeType _type)
 	case NodeType::END:
 		mColor = WHITE;
 		break;
+	case NodeType::PATH:
+		mColor = WHITE;
+		break;
+	case NodeType::SEARCHED:
+
+		switch (mType)
+		{
+		case NodeType::NORMAL:
+			mColor = GRAY;
+			break;
+
+		case NodeType::CHALLENGING :
+			mColor = DARKGRAY;
+			break;
+		case NodeType::DIFFICULT:
+			mColor = DARKBROWN;
+			break;
+		}
+
+		break;
+
 	default:
 		mColor = DARKBLUE;
 		mWeight = 99;
 		break;
 	}
+
+	mType = _type;
 }
 
 void Node::SetParent(Node* _parent)

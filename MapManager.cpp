@@ -1,6 +1,6 @@
 #include "MapManager.h"
 
-MapManager::MapManager()
+MapManager::MapManager() : mPathFinding(nullptr), mStart({ -1, -1 }), mEnd({ -1, -1 })
 {
 }
 
@@ -8,36 +8,12 @@ MapManager::~MapManager()
 {
 }
 
-std::vector<Node*> MapManager::GetNeighbours(Node* _node)
-{
-	std::vector<Node*> neighbours;
-
-	if (_node->GetPosition().x - 1 >= 0 && mTiles[(int)_node->GetPosition().x - 1][(int)_node->GetPosition().y]->GetType() != NodeType::OBSTACLE)
-	{
-		neighbours.push_back(mTiles[(int)_node->GetPosition().x - 1][(int)_node->GetPosition().y]);
-	}
-	if (_node->GetPosition().x + 1 < MAP_SIZE && mTiles[(int)_node->GetPosition().x + 1][(int)_node->GetPosition().y]->GetType() != NodeType::OBSTACLE)
-	{
-		neighbours.push_back(mTiles[(int)_node->GetPosition().x + 1][(int)_node->GetPosition().y]);
-	}
-	if (_node->GetPosition().y - 1 >= 0 && mTiles[(int)_node->GetPosition().x][(int)_node->GetPosition().y - 1]->GetType() != NodeType::OBSTACLE)
-	{
-		neighbours.push_back(mTiles[(int)_node->GetPosition().x][(int)_node->GetPosition().y - 1]);
-	}
-	if (_node->GetPosition().y + 1 < MAP_SIZE && mTiles[(int)_node->GetPosition().x][(int)_node->GetPosition().y + 1]->GetType() != NodeType::OBSTACLE)
-	{
-		neighbours.push_back(mTiles[(int)_node->GetPosition().x][(int)_node->GetPosition().y + 1]);
-	}
-
-	return neighbours;
-}
-
 void MapManager::Load()
 {
-	Image mapImage = LoadImage("resources/maps/Map1.png");
+	Image mapImage = LoadImage("resources/maps/Map2.png");
 	Color* colors = LoadImageColors(mapImage);
 
-	float tileSize = GetScreenWidth() / MAP_SIZE;
+	int tileSize = GetScreenWidth() / MAP_SIZE;
 
 	for (int y = 0; y < MAP_SIZE; y++) {
 		for (int x = 0; x < MAP_SIZE; x++) {
@@ -58,6 +34,8 @@ void MapManager::Load()
 		}
 	}
 	UnloadImage(mapImage);
+
+	mPathFinding = new PathFinding();
 }
 
 void MapManager::Draw()
@@ -72,12 +50,56 @@ void MapManager::Draw()
 	}
 }
 
-void MapManager::SetNodeType(Vector2D _position, NodeType _type)
+void MapManager::SetStart(Vector2D _position)
 {
-	mTiles[(int)_position.x][(int)_position.y]->SetType(_type);
+	mStart = _position;
+	std::string temps;
+
+	switch (mTiles[_position.x][_position.y]->GetType())
+	{
+	case NodeType::NORMAL:
+		temps = "NORMAL";
+		break;
+	case NodeType::CHALLENGING:
+		temps = "CHALLENGING";
+		break;
+	case NodeType::DIFFICULT:
+		temps = "DIFFICULT";
+		break;
+	case NodeType::OBSTACLE:
+		temps = "OBSTACLE";
+		break;
+	default:
+		break;
+	};
+	std::cout << temps << std::endl;
+
+	if (mStart != mEnd && mStart != Vector2D{ -1, -1 } && mEnd != Vector2D{ -1, -1 })
+	{
+		mPathFinding->AStar(mTiles, mStart, mEnd, HeuristicsType::EUCLIDEAN);
+		mStart = { -1, -1 };
+		mEnd = { -1, -1 };
+	}
 }
 
-Node* MapManager::GetNode(Vector2D _position)
+void MapManager::SetEnd(Vector2D _position)
 {
-	return mTiles[(int)_position.x][(int)_position.y];
+	mEnd = _position;
+
+	if (mStart != mEnd && mStart != Vector2D{ -1, -1 } && mEnd != Vector2D{ -1, -1 })
+	{
+		mPathFinding->AStar(mTiles, mStart, mEnd, HeuristicsType::EUCLIDEAN);
+		mStart = { -1, -1 };
+		mEnd = { -1, -1 };
+	}
 }
+
+//void MapManager::SetNodeType(Vector2D _position, NodeType _type)
+//{
+//	mTiles[(int)_position.x][(int)_position.y]->SetType(_type);
+//}
+
+//Node* MapManager::GetNode(Vector2D _position)
+//{
+//	return mTiles[(int)_position.x][(int)_position.y];
+//}

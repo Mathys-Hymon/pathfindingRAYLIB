@@ -14,6 +14,16 @@ struct Vector2D
 
     Vector2D(int pX, int pY) : x(pX), y(pY) {}
 
+    inline bool operator!=(Vector2D right) const
+    {
+        return (x != right.x && y != right.y);
+    }
+
+    inline bool operator==(Vector2D right) const
+    {
+        return (x == right.x && y == right.y);
+    }
+
     inline void operator+=(Vector2D& right)
     {
         x += right.x;

@@ -2,6 +2,7 @@
 #include "Vector2D.h"
 #include "raylib.h"
 #include "NodeType.h"
+#include <iostream>
 
 #define inf std::numeric_limits<int>::max()
 
