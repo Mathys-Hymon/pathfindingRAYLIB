@@ -8,7 +8,7 @@ int main()
 {
     InitWindow(1024, 1024, "Algorythm simulation");
 
-    SetTargetFPS(144);
+   //SetTargetFPS(144);
 
 	mGameManager.Load();
 

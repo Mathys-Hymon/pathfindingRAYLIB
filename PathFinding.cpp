@@ -37,6 +37,7 @@ void PathFinding::Draw(Node* _map[MAP_SIZE][MAP_SIZE], Node* currentNode)
 
 void PathFinding::AStar(Node* _map[MAP_SIZE][MAP_SIZE], Vector2D& _start, Vector2D& _end, HeuristicsType _type)
 {
+	float timer = 0;
 	std::cout << "START AT : " << _start.x << " X | " << _start.y << " Y" << std::endl;
 	std::cout << "END AT : " << _end.x << " X | " << _end.y << " Y" << std::endl;
 
@@ -66,7 +67,7 @@ void PathFinding::AStar(Node* _map[MAP_SIZE][MAP_SIZE], Vector2D& _start, Vector
 		}
 		break;
 		}
-
+		timer += GetFrameTime();
 
 		mOpenList.erase(std::remove(mOpenList.begin(), mOpenList.end(), currentNode), mOpenList.end());
 		mClosedList.push_back(currentNode);
@@ -109,6 +110,7 @@ void PathFinding::AStar(Node* _map[MAP_SIZE][MAP_SIZE], Vector2D& _start, Vector
 			}
 		}
 	}
+	std::cout << "TIMER : " << timer << std::endl;
 }
 
 void PathFinding::Dijsktra(Node* _map[MAP_SIZE][MAP_SIZE], Vector2D _start, Vector2D _end, HeuristicsType _type)
