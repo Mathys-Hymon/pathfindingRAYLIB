@@ -15,16 +15,16 @@ public:
 
 	void Draw();
 
-	void SetGCost(int _g);
-	void SetHCost(int _h);
+	void SetGCost(float _g);
+	void SetHCost(float _h);
 	void SetType(NodeType _type);
 	void SetParent(Node* _parent);
 
 
-	int GetDistance(Node* from);
-	int GetGCost();
-	int GetHCost();
-	int GetFCost();
+	float GetDistance(Node* from);
+	float GetGCost();
+	float GetHCost();
+	float GetFCost();
 	Node* GetParent();
 	NodeType& GetType();
 	Vector2D GetPosition() { return mPosition; }
@@ -32,7 +32,8 @@ public:
 private:
 	Node* mParent;
 	Vector2D mPosition;
-	int g, h, mWeight, mScale;
-	NodeType mType;
+	int mScale;
+	float mWeight, g, h, f;
+	NodeType mOldType, mType;
 	Color mColor;
 };

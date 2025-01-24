@@ -14,7 +14,7 @@ void Node::Draw()
 	DrawRectangle((mPosition.x * mScale), (mPosition.y * mScale), mScale, mScale, mColor);
 }
 
-int Node::GetDistance(Node* from)
+float Node::GetDistance(Node* from)
 {
 	return mPosition.Distance(from->mPosition);
 }
@@ -24,29 +24,30 @@ NodeType& Node::GetType()
 	return mType;
 }
 
-void Node::SetGCost(int _g)
+void Node::SetGCost(float _g)
 {
 	g = _g;
 }
 
-void Node::SetHCost(int _h)
+void Node::SetHCost(float _h)
 {
 	h = _h;
+	f = (g + h);
 }
 
-int Node::GetGCost()
+float Node::GetGCost()
 {
-	return g + mWeight;
+	return g * mWeight;
 }
 
-int Node::GetHCost()
+float Node::GetHCost()
 {
 	return h;
 }
 
-int Node::GetFCost()
+float Node::GetFCost()
 {
-	return (g + h);
+	return f;
 }
 
 Node* Node::GetParent()
@@ -56,37 +57,42 @@ Node* Node::GetParent()
 
 void Node::SetType(NodeType _type)
 {
-	//std::cout << "CHANGE TYPE" << std::endl;
 	switch (_type)
 	{
 	case NodeType::NORMAL:
 		mColor = GREEN;
+		mOldType = mType;
 		mWeight = 1;
 		break;
 	case NodeType::CHALLENGING:
 		mColor = DARKGREEN;
-		mWeight = 2;
+		mOldType = mType;
+		mWeight = 1.2;
 		break;
 	case NodeType::DIFFICULT:
 		mColor = YELLOW;
-		mWeight = 3;
+		mOldType = mType;
+		mWeight = 1.5;
 		break;
 	case NodeType::OBSTACLE:
 		mColor = BLACK;
 		mWeight = 99;
+		mOldType = mType;
 		break;
 	case NodeType::START:
 		mColor = RED;
+		mOldType = mType;
 		break;
 	case NodeType::END:
 		mColor = WHITE;
+		mOldType = mType;
 		break;
 	case NodeType::PATH:
 		mColor = WHITE;
 		break;
 	case NodeType::SEARCHED:
 
-		switch (mType)
+		switch (mOldType)
 		{
 		case NodeType::NORMAL:
 			mColor = GRAY;
@@ -95,6 +101,7 @@ void Node::SetType(NodeType _type)
 		case NodeType::CHALLENGING :
 			mColor = DARKGRAY;
 			break;
+
 		case NodeType::DIFFICULT:
 			mColor = DARKBROWN;
 			break;
@@ -107,7 +114,6 @@ void Node::SetType(NodeType _type)
 		mWeight = 99;
 		break;
 	}
-
 	mType = _type;
 }
 

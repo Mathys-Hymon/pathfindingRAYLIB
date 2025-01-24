@@ -14,7 +14,6 @@ public:
 	void Draw();
 	void SetStart(Vector2D _position);
 	void SetEnd(Vector2D _position);
-	//Node* GetNode(Vector2D _position);
 
 
 private:

@@ -4,15 +4,15 @@
 
 struct Vector2D
 {
-    int x = 0; ///< The x-coordinate of the vector.
-    int y = 0; ///< The y-coordinate of the vector.
+    float x = 0; ///< The x-coordinate of the vector.
+    float y = 0; ///< The y-coordinate of the vector.
 
     static const Vector2D Zero; ///< A vector with both coordinates set to zero.
     static const Vector2D One;  ///< A vector with both coordinates set to one.
 
     Vector2D() : x(0), y(0) {}
 
-    Vector2D(int pX, int pY) : x(pX), y(pY) {}
+    Vector2D(float pX, float pY) : x(pX), y(pY) {}
 
     inline bool operator!=(Vector2D right) const
     {
@@ -30,7 +30,7 @@ struct Vector2D
         y += right.y;
     }
 
-    inline void operator+=(int length)
+    inline void operator+=(float length)
     {
         x += length;
         y += length;
@@ -42,7 +42,7 @@ struct Vector2D
         y -= right.y;
     }
 
-    inline void operator-=(int length)
+    inline void operator-=(float length)
     {
         x -= length;
         y -= length;
@@ -54,7 +54,7 @@ struct Vector2D
         y *= multiplyer.y;
     }
 
-    inline void operator*=(int length)
+    inline void operator*=(float length)
     {
         x *= length;
         y *= length;
@@ -66,7 +66,7 @@ struct Vector2D
         y /= divider.y;
     }
 
-    inline void operator/=(int length)
+    inline void operator/=(float length)
     {
         x /= length;
         y /= length;
@@ -87,7 +87,7 @@ struct Vector2D
         return { left.x - right.x, left.y - right.y };
     }
 
-    friend Vector2D operator-(Vector2D& left, int right)
+    friend Vector2D operator-(Vector2D& left, float right)
     {
         return { left.x - right, left.y - right };
     }
@@ -107,17 +107,17 @@ struct Vector2D
         return { left.x + right.x, left.y + right.y };
     }
 
-    friend Vector2D operator+(Vector2D& left, int right)
+    friend Vector2D operator+(Vector2D& left, float right)
     {
         return { left.x + right, left.y + right };
     }
 
-    friend Vector2D operator*(int scalar, Vector2D& right)
+    friend Vector2D operator*(float scalar, Vector2D& right)
     {
         return { scalar * right.x, scalar * right.y };
     }
 
-    friend Vector2D operator*(Vector2D& left, int scalar)
+    friend Vector2D operator*(Vector2D& left, float scalar)
     {
         return { left.x * scalar, left.y * scalar };
     }
@@ -127,7 +127,7 @@ struct Vector2D
         return { scalar / right.x, scalar / right.y };
     }
 
-    friend Vector2D operator/(Vector2D& left, int scalar)
+    friend Vector2D operator/(Vector2D& left, float scalar)
     {
         return { left.x / scalar, left.y / scalar };
     }
@@ -172,7 +172,7 @@ struct Vector2D
         return sqrt(((*this).x - right.x) * ((*this).x - right.x) + ((*this).y - right.y) * ((*this).y - right.y));
     }
 
-    friend Vector2D Clamp(Vector2D temp, int minValue, int maxValue)
+    friend Vector2D Clamp(Vector2D temp, float minValue, float maxValue)
     {
         if (temp.x < minValue)  temp.x = minValue;
         if (temp.x > maxValue)  temp.x = maxValue;

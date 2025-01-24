@@ -6,7 +6,7 @@
 #include <iostream>
 #include "Node.h"
 
-#define MAP_SIZE 128
+#define MAP_SIZE 100
 
 class PathFinding
 {
@@ -14,9 +14,9 @@ public:
 	PathFinding();
 	~PathFinding();
 
-	void Draw(Node* _map[MAP_SIZE][MAP_SIZE]);
+	void Draw(Node* _map[MAP_SIZE][MAP_SIZE], Node* currentNode);
 
-	void AStar(Node* _map[MAP_SIZE][MAP_SIZE], Vector2D _start, Vector2D _end, HeuristicsType _type);
+	void AStar(Node* _map[MAP_SIZE][MAP_SIZE], Vector2D& _start, Vector2D& _end, HeuristicsType _type);
 	void Dijsktra(Node* _map[MAP_SIZE][MAP_SIZE], Vector2D _start, Vector2D _end, HeuristicsType _type);
 
 private:
@@ -29,5 +29,5 @@ private:
 
 	float mPathDelay = 0;
 
-	int CalculateHeuristic(Vector2D a, Vector2D b, HeuristicsType _type);
+	float CalculateHeuristic(Vector2D a, Vector2D b, HeuristicsType _type);
 };

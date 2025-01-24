@@ -10,26 +10,31 @@ MapManager::~MapManager()
 
 void MapManager::Load()
 {
-	Image mapImage = LoadImage("resources/maps/Map2.png");
+	Image mapImage = LoadImage("resources/maps/Map3.png");
 	Color* colors = LoadImageColors(mapImage);
 
 	int tileSize = GetScreenWidth() / MAP_SIZE;
+	std::cout << tileSize;
 
 	for (int y = 0; y < MAP_SIZE; y++) {
 		for (int x = 0; x < MAP_SIZE; x++) {
 
 			if (colors[y * mapImage.width + x].g == 255) {
-				mTiles[y][x] = new Node({ x ,y }, tileSize, NodeType::NORMAL);
+				mTiles[y][x] = new Node({ (float)x ,(float)y }, tileSize, NodeType::NORMAL);
 			}
 			if (colors[y * mapImage.width + x].b == 255) {
-				mTiles[y][x] = new Node({ x ,y }, tileSize, NodeType::CHALLENGING);
+				mTiles[y][x] = new Node({ (float)x ,(float)y }, tileSize, NodeType::CHALLENGING);
 			}
 			if (colors[y * mapImage.width + x].r == 255) {
-				mTiles[y][x] = new Node({ x ,y }, tileSize, NodeType::DIFFICULT);
+				mTiles[y][x] = new Node({ (float)x ,(float)y }, tileSize, NodeType::DIFFICULT);
 			}
 			if (colors[y * mapImage.width + x].r == 0 && colors[y * mapImage.width + x].g == 0 && colors[y * mapImage.width + x].b == 0) {
 
-				mTiles[y][x] = new Node({ x ,y }, tileSize, NodeType::OBSTACLE);
+				mTiles[y][x] = new Node({ (float)x ,(float)y }, tileSize, NodeType::OBSTACLE);
+			}
+			else
+			{
+
 			}
 		}
 	}
@@ -53,26 +58,7 @@ void MapManager::Draw()
 void MapManager::SetStart(Vector2D _position)
 {
 	mStart = _position;
-	//std::string temps;
-
-	//switch (mTiles[_position.x][_position.y]->GetType())
-	//{
-	//case NodeType::NORMAL:
-	//	temps = "NORMAL";
-	//	break;
-	//case NodeType::CHALLENGING:
-	//	temps = "CHALLENGING";
-	//	break;
-	//case NodeType::DIFFICULT:
-	//	temps = "DIFFICULT";
-	//	break;
-	//case NodeType::OBSTACLE:
-	//	temps = "OBSTACLE";
-	//	break;
-	//default:
-	//	break;
-	//};
-	//std::cout << temps << std::endl;
+	mTiles[(int)_position.y][(int)_position.x]->SetType(NodeType::START);
 
 	if (mStart != mEnd && mStart != Vector2D{ -1, -1 } && mEnd != Vector2D{ -1, -1 })
 	{
@@ -85,6 +71,7 @@ void MapManager::SetStart(Vector2D _position)
 void MapManager::SetEnd(Vector2D _position)
 {
 	mEnd = _position;
+	mTiles[(int)_position.y][(int)_position.x]->SetType(NodeType::END);
 
 	if (mStart != mEnd && mStart != Vector2D{ -1, -1 } && mEnd != Vector2D{ -1, -1 })
 	{
@@ -93,13 +80,3 @@ void MapManager::SetEnd(Vector2D _position)
 		mEnd = { -1, -1 };
 	}
 }
-
-//void MapManager::SetNodeType(Vector2D _position, NodeType _type)
-//{
-//	mTiles[(int)_position.x][(int)_position.y]->SetType(_type);
-//}
-
-//Node* MapManager::GetNode(Vector2D _position)
-//{
-//	return mTiles[(int)_position.x][(int)_position.y];
-//}
